@@ -22,7 +22,6 @@ public class Analisis
 		if(bandera) {
 			impresion.add("No hay errores lexicos");
 			analisisSintactio(tokens.getInicio());
-			AnalisisSemantico(tokens.getInicio());
 			VarNoDeclarado(tokens.getInicio());
 
 		}
@@ -285,69 +284,6 @@ public class Analisis
 		return impresion;
 	}
 
-
-	//Punto 2
-	public Token AnalisisSemantico(NodoDoble<Token> nodo) {
-		Token  tokensig, to;
-		String cadena = null;
-		if(nodo!=null) {
-			to=nodo.dato;
-
-			for (int i = 0; i < identi.size(); i++) {//recorrer toda la tabla de simbolos
-				if(identi.get(i).getTipo().contains("int")) {
-					cadena=identi.get(i).getValor();
-					if(!isNumeric(cadena)) {
-						impresion.add("Se ingreso un dato NO ENTERO, en la variable: "+identi.get(i).getNombre() +
-								", el tipo de dato de la variable: "  + identi.get(i).getTipo()+ " ,el tipo de dato que queremos asignar: " + TipoDato(cadena)
-								+ " y la posicion donde se encuentra: "+identi.get(i).getPosicion());
-					}
-				}
-				else if(identi.get(i).getTipo().contains("float")) {
-					cadena=identi.get(i).getValor();
-					if(!isFloat(cadena)) {
-						impresion.add("Se ingreso un dato NO FLOAT, en la variable: "+identi.get(i).getNombre() +
-								", el tipo de dato de la variable: "  + identi.get(i).getTipo()+ " ,el tipo de dato que queremos asignar: " + TipoDato(cadena)
-								+ " y la posicion donde se encuentra: "+identi.get(i).getPosicion());
-
-					}
-				}else if(identi.get(i).getTipo().contains("boolean")) {
-					cadena=identi.get(i).getValor();
-					if(!isBoolean(cadena)) {
-						impresion.add("Se ingreso un dato NO BOOLEANO, en la variable: "+identi.get(i).getNombre() +
-								", el tipo de dato de la variable: "  + identi.get(i).getTipo()+ " ,el tipo de dato que queremos asignar: " +cadena
-								+ " y la posicion donde se encuentra: "+identi.get(i).getPosicion());
-					}
-
-				}
-			}
-
-			//Punto 4.- Repetidos
-			for(int j=0; j<identi.size();j++) {
-				int contador=0;
-				boolean banderin=false;
-				String bandera="";
-				bandera=identi.get(j).getNombre();
-				for (int i = 0; i < auxiliar.size(); i++) {
-					if(auxiliar.get(i).contains(identi.get(j).getNombre())) {
-						banderin=true;
-					}
-				}
-
-				for(int x=0; x<identi.size();x++) {
-					if(identi.get(x).getNombre().contains(bandera) && !banderin) {	
-						contador++;
-						if(contador>1) {
-							impresion.add("Se ingreso un dato repetido en la variable: " + identi.get(x).getNombre() +
-									" en la posicion: "+ identi.get(x).getPosicion() + " y se declaro por primera vez en la posicion: " + x);
-							auxiliar.add(identi.get(x).getNombre());
-						}
-					}
-				}
-				banderin=false;
-			}
-		}
-		return vacio;
-	}
 
 	//P2.-Metodos para verificar que una cadena sea entera
 	public static boolean isNumeric(String cadena) {
