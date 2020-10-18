@@ -1,51 +1,55 @@
-package Compilador;
+package compilador;
 
-public class Token
+public class Token 
 {
-	private String tipo;
+	private int tipo;
+	final static int MODIFICADOR=0; 
+	final static int PALABRA_RESERVADA=1;
+	final static int TIPO_DATO=2;
+	final static int SIMBOLO=3;
+	final static int OPERADOR_LOGICO=4;
+	final static int OPERADOR_ARITMETICO=5;
+	final static int CONSTANTE=6;
+	final static int IDENTIFICADOR=7;
+	final static int CLASE=8;
+	final static int BOOLEAN=9;
+	final static int FLOAT=10;
+
+	private final static String types[]= 
+		{
+				"Modificador",
+				"Palabra resevada",
+				"Tipo de dato",
+				"Simbolo",
+				"Operador logico",
+				"Operador aritmetico",
+				"Constante",
+				"Identificador",
+				"Declaracion de clase",
+				"Booleano",
+				"Float"
+		};
 	private String valor;
 	private int linea;
-	private int id;
-	public Token(String tipo, String valor,int linea,int id)
-	{
+	public Token(String valor, int tipo, int linea) {
 		this.tipo=tipo;
 		this.valor=valor;
 		this.linea=linea;
-		this.id=id;
 	}
-	public String getTipo()
-	{
+	public int getTipo() {
 		return tipo;
 	}
-	public String getValor()
-	{
+	public String getValor() {
 		return valor;
 	}
-	public int getLinea()
-	{
+	public int getLinea() {
 		return linea;
 	}
-	public int getId()
-	{
-		return id;
-	}
-	public void setTipo(String tipo)
-	{
-		this.tipo = tipo;
-	}
-	public void setValor(String valor)
-	{
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
-	public void setLinea(int linea)
-	{
-		this.linea = linea;
-	}
-	public void setId(int id)
-	{
-		this.id = id;
-	}
 	public String toString() {
-		return getTipo()+"\n"+getValor()+"\n"+getId()+"\n";
+		return "Token encontrado.... " +types[tipo]+": "+valor;
 	}
+
 }
