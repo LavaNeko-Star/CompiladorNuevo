@@ -1,4 +1,4 @@
-package compilador;
+package Compilador;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -593,7 +593,7 @@ public class Analisis
 		else if(Arrays.asList("+","-","*","/").contains(token))
 			tipo = Token.OPERADOR_ARITMETICO;
 		else if(Arrays.asList("true","false").contains(token)||Pattern.matches("^\\d+$",token) 
-				|| Pattern.matches("[0-9]+.[0-9]+",token)) //es para añadir a la tabla de simbolos datos tipos float
+				|| Pattern.matches("[0-9]+.[0-9]+",token)) //es para aÃ±adir a la tabla de simbolos datos tipos float
 			tipo = Token.CONSTANTE;
 		else if(token.equals("class")) 
 			tipo =Token.CLASE;
@@ -668,19 +668,37 @@ public class Analisis
 				if(identi.get(i).getTipo().contains("int")) {
 					cadena=identi.get(i).getValor();
 					if(!isNumeric(cadena)) {
+<<<<<<< HEAD
 						impresion.add("Se ingreso un dato no entero, no es compatible. "+"Linea: "+identi.get(i).getPosicion());
+=======
+						impresion.add("Se ingreso un dato NO ENTERO, en la variable: "+identi.get(i).getNombre() +
+								", el tipo de dato de la variable: "  + identi.get(i).getTipo()+ " ,el tipo de dato que queremos asignar: " + TipoDato(cadena)
+								+ " y la posicion donde se encuentra: "+identi.get(i).getPosicion());
+>>>>>>> 611d706bf2c7d9df68ea8990d73297d224a4b2da
 					}
 				}
 				else if(identi.get(i).getTipo().contains("float")) {
 					cadena=identi.get(i).getValor();
 					if(!isFloat(cadena)) {
+<<<<<<< HEAD
 						impresion.add("Se ingreso un dato no float, no es compatible. "+"Linea: "+identi.get(i).getPosicion());
+=======
+						impresion.add("Se ingreso un dato NO FLOAT, en la variable: "+identi.get(i).getNombre() +
+								", el tipo de dato de la variable: "  + identi.get(i).getTipo()+ " ,el tipo de dato que queremos asignar: " + TipoDato(cadena)
+								+ " y la posicion donde se encuentra: "+identi.get(i).getPosicion());
+>>>>>>> 611d706bf2c7d9df68ea8990d73297d224a4b2da
 
 					}
 				}else if(identi.get(i).getTipo().contains("boolean")) {
 					cadena=identi.get(i).getValor();
 					if(!isBoolean(cadena)) {
+<<<<<<< HEAD
 						impresion.add("Se ingreso un dato no booleano, no es compatible. "+"Linea: "+identi.get(i).getPosicion());
+=======
+						impresion.add("Se ingreso un dato NO BOOLEANO, en la variable: "+identi.get(i).getNombre() +
+								", el tipo de dato de la variable: "  + identi.get(i).getTipo()+ " ,el tipo de dato que queremos asignar: " +cadena
+								+ " y la posicion donde se encuentra: "+identi.get(i).getPosicion());
+>>>>>>> 611d706bf2c7d9df68ea8990d73297d224a4b2da
 					}
 
 				}
@@ -702,7 +720,12 @@ public class Analisis
 					if(identi.get(x).getNombre().contains(bandera) && !banderin) {	
 						contador++;
 						if(contador>1) {
+<<<<<<< HEAD
 							impresion.add("Se ingreso un dato repetidoo en la linea "+ identi.get(x).getPosicion());
+=======
+							impresion.add("Se ingreso un dato repetido en la variable: " + identi.get(x).getNombre() +
+									" en la posicion: "+ identi.get(x).getPosicion() + " y se declaro por primera vez en la posicion: " + x);
+>>>>>>> 611d706bf2c7d9df68ea8990d73297d224a4b2da
 							auxiliar.add(identi.get(x).getNombre());
 						}
 					}

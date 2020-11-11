@@ -1,4 +1,4 @@
-package compilador;
+package Compilador;
 public class NodoDoble<E> {
 	E dato;
 	NodoDoble<E> siguiente;
