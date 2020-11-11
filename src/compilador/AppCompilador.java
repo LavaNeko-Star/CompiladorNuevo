@@ -27,10 +27,18 @@ public class AppCompilador extends JFrame implements ActionListener{
 	private File archivo;
 	private JTextArea areaTexto;
 	private JList<String> tokens;
-	private JTabbedPane documentos,consola,tabla;
+	private JTabbedPane documentos,consola,tabla,CodInterm;
 	private String [] titulos ={"Tipo","Nombre","Valor","Alcance","Posicion"};//Titulo de la tabla de simbolos
+	private String [] titulos2 ={"Operador","Operando 1","Operando 2","Resultado"};//Titulo de la tabla de simbolos
+
 	DefaultTableModel modelo = new DefaultTableModel(new Object[0][0],titulos);
 	private JTable mitabla = new JTable(modelo);
+
+	DefaultTableModel modelo2;
+	private JTable mitabla2  = new JTable(modelo2);
+
+
+
 	private JButton btnAnalizar;
 	public static void main(String[] args) {
 		/*try {
@@ -87,19 +95,33 @@ public class AppCompilador extends JFrame implements ActionListener{
 		documentos = new JTabbedPane();
 		consola = new JTabbedPane();
 		tabla = new JTabbedPane();
+
+
+
 		documentos.addTab("Nuevo", new JScrollPane(areaTexto));
 		documentos.setToolTipText("Aqui se muestra el codigo");
 		add(documentos);
 		tokens=new JList<String>();
 		consola.addTab("Consola",new JScrollPane(tokens));
+		consola.addTab("Cuadruplos",new JScrollPane(mitabla2));
 		//consola.addTab("Tabla",new JScrollPane(mitabla));
 		tabla.addTab("Tabla de simbolos",new JScrollPane(mitabla) );
+
 		add(consola);
 		consola.setToolTipText("Aqui se muestra el resultado del analisis");
-		add(btnAnalizar);
+
+		/*CodInterm.addTab("Cuadruplos", new JScrollPane(tokens));
+		CodInterm.setToolTipText("Aqui se muestra el codigo intermedio");
+		add(CodInterm);
+		 */
+
 		add(tabla);
+
 		//documentos.add("Analizar", btnAnalizar);
 
+
+
+		add(btnAnalizar);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -108,6 +130,7 @@ public class AppCompilador extends JFrame implements ActionListener{
 				Analisis analisador = new Analisis(archivo.getAbsolutePath());
 				tokens.setListData(analisador.getmistokens().toArray( new String [0]));
 				modelo = new DefaultTableModel(new Object[0][0],titulos);
+				modelo2 = new DefaultTableModel(new Object[0][0],titulos2);
 				mitabla.setModel(modelo);
 				for (int i = 0; i <analisador.getIdenti().size(); i++) {
 					Identificador id = analisador.getIdenti().get(i);
@@ -116,7 +139,14 @@ public class AppCompilador extends JFrame implements ActionListener{
 						modelo.addRow(datostabla);
 					}
 				}
+				for (int i=0; i < analisador.getIdenti2().size(); i++) {
+					Arbol id2 =analisador.getIdenti2().get(i);								
+					mitabla2.setModel(modelo2);
+					Object datostabla2[]= {id2.operador,id2.argumento1,id2.argumento2,id2.resultado};
 
+					modelo2.addRow(datostabla2);
+
+				}
 			}
 
 			return;
@@ -182,4 +212,5 @@ public class AppCompilador extends JFrame implements ActionListener{
 			return false;
 		}
 	}
+
 }
